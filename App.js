@@ -146,7 +146,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: 30,
     flex: 1,
     justifyContent: 'space-evenly', 
-    // backgroundColor:'#fbfcfc',
   },
   cardStyle:{
     borderWidth: 3, 

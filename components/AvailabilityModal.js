@@ -45,8 +45,8 @@ const AvailabilityModal = (props) => {
   const renderEmptyReservationsView = () => {
     return (
       <View> 
-        <Text>
-          No Reservations Have Been Made Today
+        <Text style={{textAlign: 'center'}}>
+          {`No Reservations Have Been\nMade For ${moment(selectedDate).format('LL')}`}
         </Text>
       </View>
     )
