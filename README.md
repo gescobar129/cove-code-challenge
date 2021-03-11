@@ -9,6 +9,7 @@ A conference room scheduler app specifically made for the tenants in the buildin
 - [React Native](https://reactnative.dev/docs/getting-started)
 - [react-native-calendars](https://github.com/wix/react-native-calendars)
 - [moment js](https://momentjs.com/)
+- [react-native-dotenv](https://github.com/goatandsheep/react-native-dotenv)
 
 ## Installation
 
