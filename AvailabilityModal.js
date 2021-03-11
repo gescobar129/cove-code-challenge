@@ -5,22 +5,20 @@ import {
   Text,
   TouchableOpacity,
   FlatList,
-  ActivityIndicator,
   Image
 } from 'react-native'
 import { Calendar } from 'react-native-calendars'
 import moment from 'moment';
 
 import { getReservations } from './utils/reservations'
+import { colors } from './utils/theme'
 
 const AvailabilityModal = (props) => {
   const {onDismiss, selectedRoom} = props
   const [reservationData, setReservationData] = useState([])
   const [selectedDate, setSelectedDate] = useState(moment(Date.now()).format('YYYY-MM-DD'))
-  const [loadingReservations, setLoadingReservations] = useState(false)
 
   const getRoomReservations = async (room, date) => {
-    setLoadingReservations(true) 
     try {
       const reservations = await getReservations()
       const filteredReservationsByRoomAndDate = reservations.filter(reservation => reservation.room.id === room && moment(reservation.start).format('YYYY-MM-DD') === date)
@@ -28,9 +26,7 @@ const AvailabilityModal = (props) => {
       setReservationData(filteredReservationsByRoomAndDate)
     } catch (error) {
       console.log('error', error)
-    } finally {
-      setLoadingReservations(false)
-    }
+    } 
   }
 
   const renderReservationItem = ({ item }) => {
@@ -91,10 +87,10 @@ const AvailabilityModal = (props) => {
               }
             }}
             theme={{
-              todayTextColor: '#FF7770',
+              todayTextColor: colors.coral,
               selectedDayTextColor: 'white',
-              selectedDayBackgroundColor: '#FF7770',
-              arrowColor: '#FF7770',
+              selectedDayBackgroundColor: colors.coral,
+              arrowColor: colors.coral,
               textMonthFontSize: 23,
             }}
             minDate={moment().format('YYYY-MM-DD')}
@@ -102,11 +98,11 @@ const AvailabilityModal = (props) => {
         </View>
         
           <View style={styles.reservedTimeView}>
-            {/* <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop:20}}> */}
+            <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop:20}}>
             <Text style={styles.reservedTimeText}>Reserved Time Slots</Text>
 
-            {/* <Text style={{fontWeight: 'bold', fontSize: 30}}>+</Text> */}
-            {/* </View> */}
+            <Text style={{fontWeight: 'bold', fontSize: 30}}>+</Text>
+            </View>
             <FlatList 
               data={reservationData}
               renderItem={renderReservationItem}
@@ -131,11 +127,11 @@ const styles = StyleSheet.create({
   roomViewStyle: {
     flex:1, 
     borderWidth: 2, 
-    borderColor: '#FFEDEC', 
+    borderColor: colors.lightCoral, 
     flexDirection: 'row', 
     alignItems: 'center', 
     justifyContent: 'flex-end', 
-    backgroundColor: '#FFEDEC', 
+    backgroundColor: colors.lightCoral, 
     borderTopLeftRadius: 25, 
     borderBottomLeftRadius: 25, 
     marginLeft: 80, 
@@ -155,9 +151,9 @@ const styles = StyleSheet.create({
     flex:2.5, 
     paddingHorizontal: 20, 
     borderTopWidth: 1,
-    borderColor: '#CDCDCD',
+    borderColor: colors.lightGrey,
     borderBottomWidth: 1,
-    borderBottomColor: '#CDCDCD',
+    borderBottomColor: colors.lightGrey,
   },
   reservedTimeView: {
     flex:2, 
@@ -167,9 +163,9 @@ const styles = StyleSheet.create({
   reservedTimeText: {
     fontWeight: 'bold', 
     fontSize: 20, 
-    color: '#FF7770', 
+    color: colors.coral, 
     letterSpacing: 1,
-    paddingTop: 20
+    // paddingTop: 20
   },
   reservationFlatlist: {
     flex:1, 
@@ -178,11 +174,11 @@ const styles = StyleSheet.create({
   },
   reservationItemView: {
     borderWidth:1, 
-    borderColor: '#CDCDCD', 
+    borderColor: colors.lightGrey, 
     borderRadius: 8, 
     padding: 8, 
     margin: 8, 
-    backgroundColor: '#CDCDCD', 
+    backgroundColor: colors.lightGrey, 
     width: 150, 
     justifyContent: 'center', 
     alignItems: 'center'

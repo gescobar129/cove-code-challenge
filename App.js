@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 
 import { getRoomData } from './utils/reservations'
+import { colors } from './utils/theme'
 import AvailabilityModal from './AvailabilityModal';
 
 const App = () => {
@@ -81,13 +82,13 @@ const App = () => {
   }, [])
   
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor:'#fbfcfc' }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: colors.offWhite }}>
       {isLoading ? (
         <View style={styles.activityIndicatorViewStyle}>
           <Text style={styles.activityIndicatorTextStyle}>One Moment ...</Text>
           <ActivityIndicator 
             size='large'
-            color='#FF7770'
+            color={colors.coral}
           />
         </View>
       ): (
@@ -98,7 +99,7 @@ const App = () => {
          <FlatList 
           data={roomData}
           renderItem={renderRoomItem}
-          keyExtractor={item => item.id}
+          keyExtractor={item => item.property.id}
           contentContainerStyle={styles.flatListContainerStyle}
           ListEmptyComponent={renderEmptyView}
          />
@@ -126,7 +127,7 @@ const styles = StyleSheet.create({
   },
   activityIndicatorTextStyle: {
     paddingBottom: 30, 
-    color: '#CDCDCD', 
+    color: colors.lightGrey, 
     fontSize: 40, 
     fontWeight: 'bold'
   },
@@ -138,7 +139,7 @@ const styles = StyleSheet.create({
   headerTextStyle: {
     fontWeight: 'bold', 
     fontSize: 18, 
-    color: '#FF7770', 
+    color: colors.coral, 
     letterSpacing: 2
   }, 
   flatListContainerStyle: {
@@ -152,10 +153,10 @@ const styles = StyleSheet.create({
     justifyContent: 'space-evenly',
     borderWidth:1, 
     borderRadius: 24, 
-    borderColor: '#fbfcfc',
+    borderColor: colors.offWhite,
     padding: 20, 
     backgroundColor:'white',
-    shadowColor: '#767676',
+    shadowColor: colors.darkGrey,
     shadowOpacity: .2,
     shadowRadius: 5,
     shadowOffset: {
@@ -183,7 +184,7 @@ const styles = StyleSheet.create({
   descriptionTextStyle: {
     fontSize: 10, 
     lineHeight: 14, 
-    color: 'grey'
+    color: colors.darkGrey
   },
   availabilityButtonView: {
     marginTop: 10, 
@@ -192,10 +193,10 @@ const styles = StyleSheet.create({
   },
   availabilityButtonTouchable: {
     borderWidth: 2, 
-    borderColor: '#FF7770', 
+    borderColor: colors.coral, 
     borderRadius: 20, 
     padding: 10, 
-    backgroundColor: '#FF7770'
+    backgroundColor: colors.coral
   },
   availabilityButtonText: {
     fontWeight: 'bold', 
@@ -208,7 +209,7 @@ const styles = StyleSheet.create({
   },
   emptyViewText: {
     fontSize: 30, 
-    color: '#FF7770', 
+    color: colors.coral, 
     textAlign: 'center', 
     fontWeight: 'bold'
   },
