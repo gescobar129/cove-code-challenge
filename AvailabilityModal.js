@@ -18,15 +18,14 @@ const AvailabilityModal = (props) => {
   const [reservationData, setReservationData] = useState([])
   const [selectedDate, setSelectedDate] = useState(moment(Date.now()).format('YYYY-MM-DD'))
   const [loadingReservations, setLoadingReservations] = useState(false)
-  console.log('selected day', selectedDate)
 
   const getRoomReservations = async (room, date) => {
     setLoadingReservations(true) 
     try {
       const reservations = await getReservations()
-      const filteredByDate = reservations.filter(r => r.room.id && moment(r.start).format('YYYY-MM-DD') === date)
-
-      setReservationData(filteredByDate)
+      const filteredReservationsByRoomAndDate = reservations.filter(reservation => reservation.room.id === room && moment(reservation.start).format('YYYY-MM-DD') === date)
+      
+      setReservationData(filteredReservationsByRoomAndDate)
     } catch (error) {
       console.log('error', error)
     } finally {
@@ -78,36 +77,36 @@ const AvailabilityModal = (props) => {
             source={{uri: selectedRoom.imageUrl}}
           />
           <View style={{marginHorizontal:20}}>
-            <Text style={{fontWeight: 'bold', marginBottom: 5, fontSize: 18}}>{selectedRoom.name}</Text>
+            <Text style={styles.roomNameText}>{selectedRoom.name}</Text>
             <Text>Capacity 18 People</Text>
           </View>
         </View>
-        <View style={{flex:2.5, paddingHorizontal: 20}}>
+        <View style={styles.calendarViewStyle}>
           <Calendar 
             style={{paddingBottom: 20}}
+            onDayPress={(day) => {setSelectedDate(day.dateString)}}
+            markedDates={{
+              [selectedDate]:{
+                selected: true, 
+              }
+            }}
             theme={{
               todayTextColor: '#FF7770',
-              // indicatorColor: '#FF7770',
-              selectedDayTextColor: '#FF7770',
+              selectedDayTextColor: 'white',
+              selectedDayBackgroundColor: '#FF7770',
               arrowColor: '#FF7770',
               textMonthFontSize: 23,
             }}
-            // selected={selectedDate}
-            // minDate={}
-            onDayPress={(day) => {setSelectedDate(day.dateString)}}
+            minDate={moment().format('YYYY-MM-DD')}
           />
         </View>
-        {
-          loadingReservations ? (
-          <View style={styles.activityIndicatorViewStyle}>
-            <ActivityIndicator 
-              size='large'
-              color='#FF7770'
-            />
-          </View>
-          ) : (
+        
           <View style={styles.reservedTimeView}>
+            {/* <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop:20}}> */}
             <Text style={styles.reservedTimeText}>Reserved Time Slots</Text>
+
+            {/* <Text style={{fontWeight: 'bold', fontSize: 30}}>+</Text> */}
+            {/* </View> */}
             <FlatList 
               data={reservationData}
               renderItem={renderReservationItem}
@@ -117,20 +116,13 @@ const AvailabilityModal = (props) => {
               refreshing={true}
               ListEmptyComponent={() => renderEmptyReservationsView()}
             />
-          </View>
-          )
-        }
+        </View>
       </View>
     </React.Fragment>
   )
 }
 
 const styles = StyleSheet.create({
-  activityIndicatorViewStyle: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
   modalViewStyle: {
     flex: 1,
     justifyContent: 'center',
@@ -153,21 +145,31 @@ const styles = StyleSheet.create({
     height: 90,
     width: 130,
     borderRadius: 12, 
-    // marginRight: 20
+  },
+  roomNameText: {
+    fontWeight: 'bold', 
+    marginBottom: 5, 
+    fontSize: 18
+  },
+  calendarViewStyle: {
+    flex:2.5, 
+    paddingHorizontal: 20, 
+    borderTopWidth: 1,
+    borderColor: '#CDCDCD',
+    borderBottomWidth: 1,
+    borderBottomColor: '#CDCDCD',
   },
   reservedTimeView: {
     flex:2, 
     paddingHorizontal: 20,
-    paddingTop: 30, 
     justifyContent: 'flex-start', 
-    borderTopWidth: 1, 
-    borderTopColor: '#CDCDCD',
   },
   reservedTimeText: {
     fontWeight: 'bold', 
     fontSize: 20, 
     color: '#FF7770', 
-    letterSpacing: 1
+    letterSpacing: 1,
+    paddingTop: 20
   },
   reservationFlatlist: {
     flex:1, 

@@ -3,9 +3,9 @@ import { RESERVATIONS_ENDPOINT } from '@env'
 
 export const getReservations = async () => {
   try {
-    let res = await get(RESERVATIONS_ENDPOINT)
+    let reservations = await get(RESERVATIONS_ENDPOINT)
 
-    return res
+    return reservations
   } catch (e) {
     console.log('error', e)
   }
@@ -15,11 +15,11 @@ export const getRoomData = async () => {
   let data = {}
   let rooms =[]
   try {
-    let res = await getReservations()
+    let reservations = await getReservations()
 
-    res.forEach((e) => {
-      if (!data[e.room.id]) {
-        data[e.room.id] = e.room
+    reservations.forEach((reservation) => {
+      if (!data[reservation.room.id]) {
+        data[reservation.room.id] = reservation.room
       }
     })
 
@@ -29,7 +29,7 @@ export const getRoomData = async () => {
       })
     }
   } catch (error) {
-    console.log(error)
+    console.log('error',error)
   }
   return rooms
 }

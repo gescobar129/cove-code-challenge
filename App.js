@@ -81,7 +81,7 @@ const App = () => {
   }, [])
   
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor:'#fbfcfc' }}>
       {isLoading ? (
         <View style={styles.activityIndicatorViewStyle}>
           <Text style={styles.activityIndicatorTextStyle}>One Moment ...</Text>
@@ -137,15 +137,15 @@ const styles = StyleSheet.create({
   },
   headerTextStyle: {
     fontWeight: 'bold', 
-    fontSize: 22, 
+    fontSize: 18, 
     color: '#FF7770', 
-    letterSpacing: 1
+    letterSpacing: 2
   }, 
   flatListContainerStyle: {
     paddingHorizontal: 30,
     flex: 1,
     justifyContent: 'space-evenly', 
-    backgroundColor:'#fbfcfc',
+    // backgroundColor:'#fbfcfc',
   },
   cardStyle:{
     borderWidth: 3, 
