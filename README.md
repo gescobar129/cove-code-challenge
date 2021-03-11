@@ -12,6 +12,8 @@ If I had more time I would:
 
 - Add types through the use of TypeScript. This would self-document the code and help to minimize bugs because the TypeScript compiler would catch type issues/bugs. 
 
+- Set up navigation through react navigation, that way, instead of using the modal component, we could just navigate to another view. 
+
 - Include error handling. For example, if the api call I am making to the given endpoint, I could add an alert to notify the user that there is an issue. I could also add re-try logic to make the api call again if it fails.
 
 - Add unit tests to ``` getReservations ``` and ``` getRoomData ``` functions.
