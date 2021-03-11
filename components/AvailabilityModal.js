@@ -10,8 +10,8 @@ import {
 import { Calendar } from 'react-native-calendars'
 import moment from 'moment';
 
-import { getReservations } from './utils/reservations'
-import { colors } from './utils/theme'
+import { getReservations } from '../utils/reservations'
+import { colors } from '../utils/theme'
 
 const AvailabilityModal = (props) => {
   const {onDismiss, selectedRoom} = props
@@ -98,11 +98,7 @@ const AvailabilityModal = (props) => {
         </View>
         
           <View style={styles.reservedTimeView}>
-            <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', paddingTop:20}}>
             <Text style={styles.reservedTimeText}>Reserved Time Slots</Text>
-
-            <Text style={{fontWeight: 'bold', fontSize: 30}}>+</Text>
-            </View>
             <FlatList 
               data={reservationData}
               renderItem={renderReservationItem}
@@ -165,7 +161,7 @@ const styles = StyleSheet.create({
     fontSize: 20, 
     color: colors.coral, 
     letterSpacing: 1,
-    // paddingTop: 20
+    paddingTop: 20
   },
   reservationFlatlist: {
     flex:1, 

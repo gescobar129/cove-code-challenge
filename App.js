@@ -13,7 +13,7 @@ import {
 
 import { getRoomData } from './utils/reservations'
 import { colors } from './utils/theme'
-import AvailabilityModal from './AvailabilityModal';
+import AvailabilityModal from './components/AvailabilityModal';
 
 const App = () => {
   const [roomData, setRoomData] = useState({})
